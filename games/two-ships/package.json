@@ -3,15 +3,18 @@
   "version": "1.0.0",
   "description": "https://razh.github.io/js13k-2021",
   "main": "index.js",
-"scripts": {
-  "dev": "vite",
-  "build": "vite build",
-  "serve": "vite preview",
-  "test": "jest",
-  "cypress:run": "cypress run",
-  "cypress:open": "cypress open"
-},
-"repository": {
+  "scripts": {
+    "dev": "vite",
+    "build": "vite build",
+    "serve": "vite preview",
+    "test": "jest",
+    "cypress:run": "cypress run",
+    "cypress:open": "cypress open"
+  },
+  "jest": {
+    "testMatch": ["**/tests/**/*.js"]
+  },
+  "repository": {
     "type": "git",
     "url": "git+https://github.com/razh/js13k-2021.git"
   },
