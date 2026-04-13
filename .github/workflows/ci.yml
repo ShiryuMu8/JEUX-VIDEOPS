@@ -1,0 +1,39 @@
+name: CI Jeux VideoPS
+
+# on: ce qui vient déclencher le workflow
+on:
+  push: # Déclenchement au push
+    branches: [ "**" ] # sur toutes les branches
+  pull_request:
+    branches: [ main, dev, "feat/spacetests" ] # Déclenchement sur les PR vers main
+  workflow_dispatch: # lancement manuel demandé
+
+# les jobs à exécuter
+jobs:
+  build-and-test: # Nom du job
+    runs-on: ubuntu-latest
+    
+    steps: # étapes du job
+      - name: Checkout code #checkout du code source
+        uses: actions/checkout@v4 # version du checkout
+
+      - name: Setup Node.js # configuration de Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies # installation des dépendances
+        run: npm ci
+
+      - name: Linter (Google Style)
+        # respect du style de code Google
+        run: npm run lint 
+
+      - name: Run Tests with Annotations
+        # retour sur les tests avec annotations
+        run: npm test
+
+      - name: Security Audit
+        # audit des dépendances
+        run: npm audit --audit-level=high
