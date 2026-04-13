@@ -30,7 +30,7 @@ jobs:
       - name: Security audit
         run: cd games/two-ships && npm audit --audit-level=high # audit sécurité
 
-  test-space-invaders: # job pour space-invaders
+  test-space-word: # job pour space-word
     runs-on: ubuntu-latest
 
     steps:
@@ -43,10 +43,10 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: cd games/space-invaders && npm install
+        run: cd games/space-word && npm install
 
       - name: Unit tests
-        run: cd games/space-invaders && npm test
+        run: cd games/space-word && npm test
 
       - name: Security audit
-        run: cd games/space-invaders && npm audit --audit-level=high
+        run: cd games/space-word && npm audit --audit-level=high
