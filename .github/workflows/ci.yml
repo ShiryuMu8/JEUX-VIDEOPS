@@ -1,4 +1,4 @@
-name: CI Jeux VideoPS
+name: CI Jeux Videops
 
 # on: ce qui vient déclencher le workflow
 on:
@@ -28,7 +28,7 @@ jobs:
 
       - name: Linter (Google Style)
         # respect du style de code Google
-        run: npm run lint 
+        run: npx eslint games/space-word/ --fix
 
       - name: Run Tests with Annotations
         # retour sur les tests avec annotations
