@@ -2,38 +2,51 @@ name: CI Jeux Videops
 
 # on: ce qui vient déclencher le workflow
 on:
-  push: # Déclenchement au push
-    branches: [ "**" ] # sur toutes les branches
-  pull_request:
-    branches: [ main, dev, "feat/spacetests" ] # Déclenchement sur les PR vers main
-  workflow_dispatch: # lancement manuel demandé
+  push: # déclenchement au push
+  pull_request: # déclenchement sur les PR
+  workflow_dispatch: # lancement manuel
 
 # les jobs à exécuter
 jobs:
-  build-and-test: # Nom du job
-    runs-on: ubuntu-latest
-    
-    steps: # étapes du job
-      - name: Checkout code #checkout du code source
-        uses: actions/checkout@v4 # version du checkout
 
-      - name: Setup Node.js # configuration de Node.js
+  test-two-ships: # job pour two-ships
+    runs-on: ubuntu-latest # machine virtuelle Linux
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4 # récupère le code
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4 # installe Node.js
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: cd games/two-ships && npm install # installe les dépendances
+
+      - name: Unit tests
+        run: cd games/two-ships && npm test # lance les tests unitaires
+
+      - name: Security audit
+        run: cd games/two-ships && npm audit --audit-level=high # audit sécurité
+
+  test-space-invaders: # job pour space-invaders
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: '20'
-          cache: 'npm'
 
-      - name: Install dependencies # installation des dépendances
-        run: npm ci
+      - name: Install dependencies
+        run: cd games/space-invaders && npm install
 
-      - name: Linter (Google Style)
-        # respect du style de code Google
-        run: npx eslint games/space-word/ --fix
+      - name: Unit tests
+        run: cd games/space-invaders && npm test
 
-      - name: Run Tests with Annotations
-        # retour sur les tests avec annotations
-        run: npm test
-
-      - name: Security Audit
-        # audit des dépendances
-        run: npm audit --audit-level=high
+      - name: Security audit
+        run: cd games/space-invaders && npm audit --audit-level=high
