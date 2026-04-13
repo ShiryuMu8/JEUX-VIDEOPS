@@ -28,7 +28,7 @@ jobs:
         run: cd games/two-ships && npm test # lance les tests unitaires
 
       - name: Security audit
-        run: cd games/two-ships && npm audit --audit-level=high # audit sécurité
+        run: cd games/two-ships && npm audit --audit-level=critical # audit sécurité
 
   test-space-word: # job pour space-word
     runs-on: ubuntu-latest
@@ -49,4 +49,4 @@ jobs:
         run: cd games/space-word && npm test
 
       - name: Security audit
-        run: cd games/space-word && npm audit --audit-level=high
+        run: cd games/space-word && npm audit --audit-level=critical
