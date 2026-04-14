@@ -5,6 +5,11 @@
     "test": "jest",
     "lint": "eslint ."
   },
+  "jest": {
+    "testMatch": [
+      "**/games/space-word/tests/**/*.js"
+    ]
+  },
   "devDependencies": {
     "eslint": "^8.0.0",
     "eslint-config-google": "^0.14.0",
