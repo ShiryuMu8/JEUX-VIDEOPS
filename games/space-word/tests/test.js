@@ -75,9 +75,9 @@ test('nb9 : getRandomInt avec bornes à zéro', () => {
 
 // – rectIntersect(0,0,1,1,1,1,2,2) returns false
 test('nb10 : rectIntersect sans collision avec des rectangles éloignés', () => {
-    const resultat = game.rectIntersect(0, 0, 1, 1, 1, 1, 2, 2);
-    const attendu = false;
-    expect(resultat).toBe(attendu);
+     const resultat = game.rectIntersect(0, 0, 1, 1, 2, 2, 2, 2); 
+     const attendu = false;
+     expect(resultat).toBe(attendu);
 });
 
 // – rectIntersect(0,0,2,2,1,1,2,2) returns true
