@@ -1,11 +1,14 @@
 {
   "name": "space-word",
   "version": "1.0.0",
-  "description": "To make it easy for you to get started with GitLab, here's a list of recommended next steps.",
-  "main": "script.js",
-  "directories": {
-    "test": "tests"
+  "scripts": {
+    "start": "npx http-server . -p 3000",
+    "test": "jest" 
   },
+  "devDependencies": {
+    "jest": "^29.0.0"
+  }
+}
 "scripts": {
     "start": "npx http-server . -p 3000"
   },
