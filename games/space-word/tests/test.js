@@ -1,7 +1,3 @@
-/**
- * @jest-environment jsdom
- */
-
 // On importe les fonctions
 const game = require('../script.js');
 
