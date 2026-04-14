@@ -3,5 +3,6 @@ module.exports = {
   extends: ['google'],
   parserOptions: {
     ecmaVersion: 2018,
+    sourceType: 'module', // indique que le code utilise les import/export
   },
 };
