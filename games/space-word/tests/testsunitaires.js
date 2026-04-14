@@ -65,3 +65,6 @@ test('nb8 : timeToString avec erreur de type (string)', () => {
     const attendu = "NaN:NaN:NaN";
     expect(resultat).toBe(attendu);
 });
+
+// 5 TESTS UNITAIRES SUPPLEMENTAIRES
+
