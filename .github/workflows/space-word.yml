@@ -20,13 +20,23 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        run: cd games/space-word && npm install
+        # On installe Cypress à la racine et http-server dans le dossier du jeu pour pouvoir lancer le serveur de test
+        run: |
+          npm install
+          cd games/space-word && npm install
 
       - name: Lint
-        run: cd games/space-word && npx eslint src/
+        run: cd games/space-word && npx eslint script.js
 
       - name: Unit tests
         run: cd games/space-word && npm test
+
+      - name: Cypress Functional Tests
+        uses: cypress-io/github-action@v6
+        with:
+          start: npm start --prefix games/space-word
+          wait-on: 'http://localhost:3000'
+          spec: cypress/e2e/space-word.cy.js
 
       - name: Security audit
         run: cd games/space-word && npm audit --audit-level=critical
