@@ -146,7 +146,7 @@ export var map0 = (gl, scene, camera) => {
   lightShadow_updateMatrices(directional.shadow, directional);
   updateShadowCamera();
 
-  var createStaticMeshFromGeometry = geometry => {
+  var createStaticMeshFromGeometry = (geometry) => {
     var material = material_create();
     vec3_set(material.color, 0.7, 0.7, 0.75);
     var mesh = physics_add(mesh_create(geometry, material), BODY_STATIC);
@@ -226,8 +226,8 @@ export var map0 = (gl, scene, camera) => {
 
   // Columns.
   spaceBetween(256, 0, 4)
-    .map(z => [-340, 0, z])
-    .map(position =>
+    .map((z) => [-340, 0, z])
+    .map((position) =>
       vec3_set(
         createStaticMeshFromGeometry(column_create(24, 128)).position,
         ...position,
@@ -282,7 +282,7 @@ export var map0 = (gl, scene, camera) => {
     var health = initialHealth;
     var hitTimeout;
     var enemyPhysics = get_physics_component(enemy);
-    on(enemy, 'collide', entity => {
+    on(enemy, 'collide', (entity) => {
       var entityPhysics = get_physics_component(entity).physics;
       if (entityPhysics === BODY_BULLET) {
         health--;
@@ -311,7 +311,7 @@ export var map0 = (gl, scene, camera) => {
     var time = 0;
     return entity_add(
       entity,
-      component_create(dt => {
+      component_create((dt) => {
         time += dt;
         if (time > duration) {
           object3d_remove(entity.parent, entity);
@@ -398,7 +398,7 @@ export var map0 = (gl, scene, camera) => {
 
     var mesh = entity_add(
       enemyHealth_create(physics_add(createPhantomMesh(), BODY_DYNAMIC), 5),
-      component_create(dt => {
+      component_create((dt) => {
         if (state === PHANTOM_STATE_NONE && findTarget(mesh, playerMesh)) {
           state === PHANTOM_STATE_ALERT;
         }
@@ -407,9 +407,9 @@ export var map0 = (gl, scene, camera) => {
         vec3_addScaledVector(enemyPhysics.velocity, gravity, dt);
         var range = getRange(mesh, playerMesh);
         var wishDirection =
-          state === PHANTOM_STATE_ALERT || findTarget(mesh, playerMesh)
-            ? vec3_subVectors(_v0, playerMesh.position, mesh.position)
-            : vec3_setScalar(_v0, 0);
+          state === PHANTOM_STATE_ALERT || findTarget(mesh, playerMesh) ?
+            vec3_subVectors(_v0, playerMesh.position, mesh.position) :
+            vec3_setScalar(_v0, 0);
         wishDirection.y = 0;
         vec3_normalize(wishDirection);
 
@@ -508,7 +508,7 @@ export var map0 = (gl, scene, camera) => {
 
           object3d_add(map, bullet);
 
-          bulletPhysics.collide = entity => {
+          bulletPhysics.collide = (entity) => {
             if (entity.isEnemy) return false;
             if (entity === playerMesh) takeDamage();
             createExplosion(bullet.position);
@@ -521,7 +521,7 @@ export var map0 = (gl, scene, camera) => {
     mesh.isEnemy = true;
     mesh.isPhantom = true;
 
-    on(mesh, 'collide', entity => {
+    on(mesh, 'collide', (entity) => {
       if (get_physics_component(entity).physics === BODY_BULLET) {
         state = PHANTOM_STATE_ALERT;
       }
@@ -556,7 +556,7 @@ export var map0 = (gl, scene, camera) => {
 
     var mesh = entity_add(
       enemyHealth_create(physics_add(createScannerMesh(), BODY_DYNAMIC), 2),
-      component_create(dt => {
+      component_create((dt) => {
         if (state === SCANNER_STATE_NONE && findTarget(mesh, playerMesh)) {
           state = SCANNER_STATE_ALERT;
         }
@@ -569,9 +569,9 @@ export var map0 = (gl, scene, camera) => {
 
         var range = getRange(mesh, playerMesh);
         var wishDirection =
-          state === SCANNER_STATE_ALERT || findTarget(mesh, playerMesh)
-            ? vec3_subVectors(_v0, playerMesh.position, mesh.position)
-            : vec3_setScalar(_v0, 0);
+          state === SCANNER_STATE_ALERT || findTarget(mesh, playerMesh) ?
+            vec3_subVectors(_v0, playerMesh.position, mesh.position) :
+            vec3_setScalar(_v0, 0);
         vec3_normalize(wishDirection);
 
         if (vec3_length(wishDirection)) {
@@ -644,7 +644,7 @@ export var map0 = (gl, scene, camera) => {
 
           object3d_add(map, bullet);
 
-          bulletPhysics.collide = entity => {
+          bulletPhysics.collide = (entity) => {
             if (entity.isEnemy) return false;
             if (entity === playerMesh) takeDamage();
             createExplosion(bullet.position);
@@ -659,7 +659,7 @@ export var map0 = (gl, scene, camera) => {
     mesh.isEnemy = true;
     mesh.isScanner = true;
 
-    on(mesh, 'collide', entity => {
+    on(mesh, 'collide', (entity) => {
       if (get_physics_component(entity).physics === BODY_BULLET) {
         state = SCANNER_STATE_ALERT;
       }
@@ -696,7 +696,7 @@ export var map0 = (gl, scene, camera) => {
     object3d_add(map, enemyMesh);
   }
 
-  var createExplosion = position => {
+  var createExplosion = (position) => {
     var explosion = explosion_create(4);
     Object.assign(explosion.position, position);
     object3d_add(map, explosion);
@@ -714,10 +714,10 @@ export var map0 = (gl, scene, camera) => {
 
   entity_add(
     map,
-    component_create(dt => {
+    component_create((dt) => {
       bodies = physics_bodies(map);
-      staticBodies = bodies.filter(body => body.physics === BODY_STATIC);
-      staticMeshes = staticBodies.map(body => body.parent);
+      staticBodies = bodies.filter((body) => body.physics === BODY_STATIC);
+      staticMeshes = staticBodies.map((body) => body.parent);
       physics_update(bodies);
       player.dt = dt;
 
@@ -802,7 +802,7 @@ export var map0 = (gl, scene, camera) => {
 
         object3d_add(map, bullet);
 
-        bulletPhysics.collide = entity => {
+        bulletPhysics.collide = (entity) => {
           if (entity === playerMesh) return false;
           createExplosion(bullet.position);
           object3d_remove(map, bullet);
@@ -846,11 +846,11 @@ export var map0 = (gl, scene, camera) => {
         vec3_set(ray.direction, 0, 0, -1),
         camera.quaternion,
       );
-      var staticMeshes = staticBodies?.map(body => body.parent) || [];
+      var staticMeshes = staticBodies?.map((body) => body.parent) || [];
       staticMeshes = [];
       object3d_traverse(
         map,
-        object => object.geometry && staticMeshes.push(object),
+        (object) => object.geometry && staticMeshes.push(object),
       );
       var intersection = ray_intersectObjects(ray, staticMeshes)?.[0];
       if (intersection) {
