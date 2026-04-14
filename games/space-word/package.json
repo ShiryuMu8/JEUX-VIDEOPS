@@ -1,21 +1,17 @@
 {
   "name": "space-word",
   "version": "1.0.0",
+  "description": "",
+  "main": "script.js",
+  "type": "commonjs",
   "scripts": {
     "start": "npx http-server . -p 3000",
-    "test": "jest" 
-  },
-  "devDependencies": {
-    "jest": "^29.0.0"
-  }
-}
-"scripts": {
-    "start": "npx http-server . -p 3000"
+    "test": "jest"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
-  "type": "commonjs"
+  "devDependencies": {
+    "jest": "^29.0.0"
+  }
 }
-
-
