@@ -68,3 +68,40 @@ test('nb8 : timeToString avec erreur de type (string)', () => {
 
 // 5 TESTS UNITAIRES SUPPLEMENTAIRES
 
+// – getRandomInt(0, 0) returns 0
+test('nb9 : getRandomInt avec bornes à zéro', () => {
+    const min = 0;
+    const max = 0;
+    const resultat = game.getRandomInt(min, max);
+    const attendu = 0;
+    expect(resultat).toBe(attendu);
+});
+
+// – rectIntersect(0,0,1,1,1,1,2,2) returns false
+test('nb10 : rectIntersect sans collision avec des rectangles éloignés', () => {
+    const resultat = game.rectIntersect(0, 0, 1, 1, 1, 1, 2, 2);
+    const attendu = false;
+    expect(resultat).toBe(attendu);
+});
+
+// – rectIntersect(0,0,2,2,1,1,2,2) returns true
+test('nb11 : rectIntersect avec collision partielle', () => {
+    const resultat = game.rectIntersect(0, 0, 2, 2, 1, 1, 2, 2);
+    const attendu = true;
+    expect(resultat).toBe(attendu);
+});
+
+// – circleIntersect(0,0,1,1,1,1) returns true
+test('nb12 : circleIntersect avec collision parfaite', () => {
+    const resultat = game.circleIntersect(0, 0, 1, 1, 1, 1);
+    const attendu = true;
+    expect(resultat).toBe(attendu);
+});
+
+// – timeToString(0) returns "00:00:00"
+test('nb13 : timeToString avec zéro milliseconde', () => {
+    const ms = 0;
+    const resultat = game.timeToString(ms);
+    const attendu = "00:00:00";
+    expect(resultat).toBe(attendu);
+});
