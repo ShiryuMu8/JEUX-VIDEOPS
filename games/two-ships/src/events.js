@@ -23,6 +23,6 @@ export var off = (target, type, listener) => {
 };
 
 export var trigger = (target, type, event) => {
-  _listeners.get(target)?.[type]?.map(listener => listener(event));
+  _listeners.get(target)?.[type]?.map((listener) => listener(event));
   return target;
 };

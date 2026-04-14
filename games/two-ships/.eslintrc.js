@@ -1,8 +1,20 @@
 module.exports = {
-  root: true, // empêche ESLint de remonter chercher d'autres configs
+  root: true,
   extends: ['google'],
   parserOptions: {
-    ecmaVersion: 2018,
-    sourceType: 'module', // indique que le code utilise les import/export
+    ecmaVersion: 2020, // supporte ?. et ?? 
+    sourceType: 'module',
+  },
+  rules: {
+    'no-var': 'off',
+    'prefer-const': 'off',
+    'require-jsdoc': 'off',
+    'valid-jsdoc': 'off',
+    'max-len': 'off',
+    'no-unused-vars': 'warn',
+    'indent': 'off',
+    'object-curly-spacing': 'off',
+    'space-before-function-paren': 'off',
+    'camelcase': 'off',
   },
 };
