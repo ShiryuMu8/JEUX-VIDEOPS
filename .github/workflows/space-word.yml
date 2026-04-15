@@ -7,7 +7,7 @@ on:
 
 jobs:
 
-  ci-space-word: # intégration continue
+  ci-space-word:
     runs-on: ubuntu-latest
 
     steps:
@@ -40,9 +40,9 @@ jobs:
       - name: Security audit
         run: cd games/space-word && npm audit --audit-level=critical
 
-  cd-space-word: # déploiement continu
+  cd-space-word:
     runs-on: ubuntu-latest
-    needs: ci-space-word # attend que le CI passe avant de déployer
+    needs: ci-space-word
 
     steps:
       - uses: actions/checkout@v4
@@ -56,6 +56,20 @@ jobs:
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./games/space-word # pas de build nécessaire
+          publish_dir: ./games/space-word
           destination_dir: space-word
-          keep_files: true # garde les autres fichiers déjà déployés
+          keep_files: true
+
+  deploy-index: # déploie la page d'accueil
+    runs-on: ubuntu-latest
+    needs: cd-space-word
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy index
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          keep_files: true
