@@ -53,3 +53,4 @@ jobs:
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./games/space-word
+          destination_dir: space-word # déploie dans un sous-dossier
