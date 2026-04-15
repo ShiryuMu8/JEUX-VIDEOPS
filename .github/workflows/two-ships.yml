@@ -38,9 +38,20 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: cd games/two-ships && npm install
+
+      - name: Build
+        run: cd games/two-ships && npm run build # compile le jeu avec Vite
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./games/two-ships
-          destination_dir: two-ships # déploie dans un sous-dossier
+          publish_dir: ./games/two-ships/dist # dossier de build Vite
+          destination_dir: two-ships

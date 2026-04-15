@@ -20,7 +20,6 @@ jobs:
           node-version: '20'
 
       - name: Install dependencies
-        # On installe Cypress à la racine et http-server dans le dossier du jeu pour pouvoir lancer le serveur de test
         run: |
           npm install
           cd games/space-word && npm install
@@ -48,9 +47,14 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
-          publish_dir: ./games/space-word
-          destination_dir: space-word # déploie dans un sous-dossier
+          publish_dir: ./games/space-word # pas de build nécessaire
+          destination_dir: space-word
