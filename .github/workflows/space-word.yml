@@ -58,3 +58,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./games/space-word # pas de build nécessaire
           destination_dir: space-word
+          keep_files: true # garde les autres fichiers déjà déployés

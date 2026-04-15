@@ -55,3 +55,4 @@ jobs:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./games/two-ships/dist # dossier de build Vite
           destination_dir: two-ships
+          keep_files: true # garde les autres fichiers déjà déployés
