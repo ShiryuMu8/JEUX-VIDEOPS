@@ -3,13 +3,13 @@ name: Space Word CI/CD
 # on: ce qui vient déclencher le workflow
 on:
   push:
-    branches: [ "**" ] # Déclenchement sur toutes les branches
+    branches: [ "**" ] # déclenchement sur toutes les branches
   pull_request:
     branches: [ main, dev ]
-  workflow_dispatch: # Permet le lancement manuel depuis l'interface GitHub
+  workflow_dispatch: # lancement manuel
 
 jobs:
-  ci-space-word: # Job d'intégration continue
+  ci-space-word: # job d'intégration continue
     runs-on: ubuntu-latest
 
     steps:
@@ -23,21 +23,21 @@ jobs:
           cache: 'npm'
 
       - name: Install dependencies
-        # Installation de Cypress (racine) et du serveur de jeu (local)
+        # installation de Cypress (racine) et du serveur de jeu (local)
         run: |
           npm install
           cd games/space-word && npm install
 
       - name: Linter (Google Style)
-        # Vérification du respect des règles de codage
+        # vérification du respect des règles de codage
         run: cd games/space-word && npx eslint script.js
 
       - name: Unit tests
-        # Exécution des tests unitaires avec Jest
-        run: cd games/space-word && npm test
+        # exécution des tests unitaires avec Jest + annotations GitHub
+        run: cd games/space-word && npm test -- --reporters=default --reporters=github-actions
 
       - name: Cypress Functional Tests
-      # Cypress fait un retour avec annotations
+        # cypress fait un retour avec annotations
         uses: cypress-io/github-action@v6
         with:
           start: npm start --prefix games/space-word
@@ -45,24 +45,47 @@ jobs:
           spec: cypress/e2e/space-word.cy.js
 
       - name: Security Audit
-        # Audit des vulnérabilités critiques
+        # audit des vulnérabilités critiques
         run: cd games/space-word && npm audit --audit-level=critical
 
       - name: Final Summary Report
-        # UTILISATION EXPLICITE DES COMMANDES DE FLUX DE TRAVAIL
+        # résumé du workflow via commandes de flux de travail
         if: always()
         run: |
           echo "### Résumé du Workflow" >> $GITHUB_STEP_SUMMARY
           echo "Le pipeline Space Word a été exécuté avec succès." >> $GITHUB_STEP_SUMMARY
           echo "Annotations générées automatiquement pour Cypress et Lint." >> $GITHUB_STEP_SUMMARY
 
-  cd-space-word: # Job de déploiement continu
+  cd-space-word: # job de déploiement continu
     runs-on: ubuntu-latest
-    needs: ci-space-word # Le déploiement ne se fait que si les tests passent
+    needs: ci-space-word # le déploiement ne se fait que si les tests passent
+
     steps:
       - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           publish_dir: ./games/space-word
+          destination_dir: space-word # déploie dans un sous-dossier
+          keep_files: true # garde les autres fichiers déjà déployés
+
+  deploy-index: # déploie la page d'accueil
+    runs-on: ubuntu-latest
+    needs: cd-space-word
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy index
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          keep_files: true
