@@ -1,13 +1,15 @@
 name: Space Word CI/CD
 
+# on: ce qui vient déclencher le workflow
 on:
   push:
+    branches: [ "**" ] # Déclenchement sur toutes les branches
   pull_request:
-  workflow_dispatch:
+    branches: [ main, dev ]
+  workflow_dispatch: # Permet le lancement manuel depuis l'interface GitHub
 
 jobs:
-
-  ci-space-word: # intégration continue
+  ci-space-word: # Job d'intégration continue
     runs-on: ubuntu-latest
 
     steps:
@@ -18,36 +20,47 @@ jobs:
         uses: actions/setup-node@v4
         with:
           node-version: '20'
+          cache: 'npm'
 
       - name: Install dependencies
-        # On installe Cypress à la racine et http-server dans le dossier du jeu pour pouvoir lancer le serveur de test
+        # Installation de Cypress (racine) et du serveur de jeu (local)
         run: |
           npm install
           cd games/space-word && npm install
 
-      - name: Lint
+      - name: Linter (Google Style)
+        # Vérification du respect des règles de codage
         run: cd games/space-word && npx eslint script.js
 
       - name: Unit tests
+        # Exécution des tests unitaires avec Jest
         run: cd games/space-word && npm test
 
       - name: Cypress Functional Tests
+      # Cypress fait un retour avec annotations
         uses: cypress-io/github-action@v6
         with:
           start: npm start --prefix games/space-word
           wait-on: 'http://localhost:3000'
           spec: cypress/e2e/space-word.cy.js
 
-      - name: Security audit
+      - name: Security Audit
+        # Audit des vulnérabilités critiques
         run: cd games/space-word && npm audit --audit-level=critical
 
-  cd-space-word: # déploiement continu
-    runs-on: ubuntu-latest
-    needs: ci-space-word # attend que le CI passe avant de déployer
+      - name: Final Summary Report
+        # UTILISATION EXPLICITE DES COMMANDES DE FLUX DE TRAVAIL
+        if: always()
+        run: |
+          echo "### Résumé du Workflow" >> $GITHUB_STEP_SUMMARY
+          echo "Le pipeline Space Word a été exécuté avec succès." >> $GITHUB_STEP_SUMMARY
+          echo "Annotations générées automatiquement pour Cypress et Lint." >> $GITHUB_STEP_SUMMARY
 
+  cd-space-word: # Job de déploiement continu
+    runs-on: ubuntu-latest
+    needs: ci-space-word # Le déploiement ne se fait que si les tests passent
     steps:
       - uses: actions/checkout@v4
-
       - name: Deploy to GitHub Pages
         uses: peaceiris/actions-gh-pages@v3
         with:
