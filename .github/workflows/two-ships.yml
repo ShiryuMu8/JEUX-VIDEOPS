@@ -23,10 +23,10 @@ jobs:
         run: cd games/two-ships && npm install
 
       - name: Lint
-        run: cd games/two-ships && npx eslint src/
+        run: cd games/two-ships && npx eslint src/ --format github # annotations sur les erreurs lint
 
       - name: Unit tests
-        run: cd games/two-ships && npm test
+        run: cd games/two-ships && npm test -- --reporters=default --reporters=github-actions # annotations sur les tests
 
       - name: Security audit
         run: cd games/two-ships && npm audit --audit-level=critical

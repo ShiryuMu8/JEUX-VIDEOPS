@@ -25,10 +25,10 @@ jobs:
           cd games/space-word && npm install
 
       - name: Lint
-        run: cd games/space-word && npx eslint script.js
+        run: cd games/space-word && npx eslint script.js --format github # annotations sur les erreurs lint
 
       - name: Unit tests
-        run: cd games/space-word && npm test
+        run: cd games/space-word && npm test -- --reporters=default --reporters=github-actions # annotations sur les tests
 
       - name: Cypress Functional Tests
         uses: cypress-io/github-action@v6
