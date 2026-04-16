@@ -10,11 +10,10 @@
 </div>
 
 ### Fonctionnalités
-* **Qualité :** Analyse statique (Linting) et tests automatisés.
-* **Sécurité :** Audit des dépendances (npm audit).
-* **Rapidité :** Déploiement automatisé via GitHub Pages.
-* **Visibilité :** Mise à disposition immédiate des jeux après chaque modification.
-
+* Faciliter le développement des jeux
+* Garantir la qualité et la sécurité du code produit
+*  Accélérer le déploiement des jeux
+* Promouvoir ces jeux, en les mettant à disposition en ligne
 ### 🛠 Technologies
 * [![Docker][Docker-badge]][Docker-url]
 * [![Jest][Jest-badge]][Jest-url]
@@ -28,16 +27,8 @@
 ### Avec Docker
 
 ```bash
-# Se placer dans le dossier du jeu
-cd games/space-word
-# ou
-cd games/two-ships
-
-# Construire l'image
-docker build -t game-image .
-
-# Lancer le conteneur sur le port 3000
-docker run -p 3000:3000 game-image
+# Se placer dans le dossier à la racine
+docker compose up --build
 ```
 
 ---
