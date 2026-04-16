@@ -29,7 +29,7 @@ jobs:
         run: cd games/two-ships && npm test -- --reporters=default --reporters=github-actions
 
       - name: Security audit
-        run: cd games/two-ships && npm audit --audit-level=critical
+        run: cd games/two-ships && npm audit --audit-level=high
 
   cd-two-ships: # déploiement continu
     runs-on: ubuntu-latest

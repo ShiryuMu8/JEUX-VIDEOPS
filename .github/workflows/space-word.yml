@@ -46,7 +46,7 @@ jobs:
 
       - name: Security Audit
         # audit des vulnérabilités critiques
-        run: cd games/space-word && npm audit --audit-level=critical
+        run: cd games/space-word && npm audit --audit-level=high
 
       - name: Final Summary Report
         # résumé du workflow via commandes de flux de travail
