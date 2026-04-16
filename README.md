@@ -5,7 +5,7 @@
     <strong>Automatiser plus pour travailler moins</strong><br />
     Mise en place de pipelines CI/CD complets
     <br />
-    <a href="https://shiryumu8.github.io/JEUX-VIDEOPS/"><strong>Accéder aux jeux en ligne</strong></a>
+    <a href="https://shiryumu8.github.io/JEUX-VIDEOPS/" target="_blank"><strong>Accéder aux jeux en ligne</strong></a>
   </p>
 </div>
 
