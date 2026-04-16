@@ -1,9 +1,0 @@
-node_modules/
-*.class
-.DS_Store
-cypress/videos/
-cypress/screenshots/
-dist/
-.nyc_output/
-coverage/
-docs/
