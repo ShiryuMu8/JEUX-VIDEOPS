@@ -33,9 +33,9 @@ jobs:
         run: cd games/space-word && npx eslint script.js
 
       - name: Unit tests
-        # exécution des tests unitaires avec Jest + annotations GitHub
-        run: cd games/space-word && npm test -- --reporters=default --reporters=github-actions
-
+        # exécution des tests unitaires avec Jest
+        run: cd games/space-word && npm test      
+        
       - name: Cypress Functional Tests
         # cypress fait un retour avec annotations
         uses: cypress-io/github-action@v6
