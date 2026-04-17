@@ -11,7 +11,7 @@ module.exports = {
     'require-jsdoc': 'off',
     'valid-jsdoc': 'off',
     'max-len': 'off',
-    'no-unused-vars': 'warn',
+    'no-unused-vars': 'off',
     'indent': 'off',
     'object-curly-spacing': 'off',
     'space-before-function-paren': 'off',
