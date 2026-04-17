@@ -1,0 +1,72 @@
+name: Two Ships CI/CD
+
+on:
+  push: # déclenchement au push
+  pull_request: # déclenchement sur les PR
+  workflow_dispatch: # lancement manuel
+
+jobs:
+
+  ci-two-ships: # intégration continue
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: cd games/two-ships && npm install
+
+      - name: Lint
+        run: cd games/two-ships && npx eslint src/
+
+      - name: Unit tests
+        run: cd games/two-ships && npm test -- --reporters=default --reporters=github-actions
+
+      - name: Security audit
+        run: cd games/two-ships && npm audit --audit-level=high
+
+  cd-two-ships: # déploiement continu
+    runs-on: ubuntu-latest
+    needs: ci-two-ships
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+
+      - name: Install dependencies
+        run: cd games/two-ships && npm install
+
+      - name: Build
+        run: cd games/two-ships && npm run build
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./games/two-ships/dist
+          destination_dir: two-ships
+          keep_files: true
+
+  deploy-index: # déploie la page d'accueil
+    runs-on: ubuntu-latest
+    needs: cd-two-ships
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Deploy index
+        uses: peaceiris/actions-gh-pages@v3
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./public
+          keep_files: true

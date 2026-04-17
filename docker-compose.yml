@@ -1,0 +1,18 @@
+services:
+  space-word:
+    build:
+      context: ./games/space-word
+
+  two-ships:
+    build:
+      context: ./games/two-ships
+
+  nginx:
+    build:
+      context: .
+      dockerfile: nginx/Dockerfile
+    ports:
+      - "8080:80"
+    depends_on:
+      - space-word
+      - two-ships
