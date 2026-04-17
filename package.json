@@ -17,5 +17,13 @@
     "http-server": "^14.1.1",
     "jest": "^29.0.0",
     "jest-environment-jsdom": "^30.3.0"
+  },
+   "overrides": {
+    "serialize-javascript": "^7.0.5",
+    "diff": "^5.2.1"
+  },
+  "resolutions": {
+    "serialize-javascript": "^7.0.5",
+    "diff": "^5.2.1"
   }
 }
