@@ -2,34 +2,77 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8">
-  <title>Jeux VidEOPS</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>JEUX VIDEOPS</title>
+  <link href="https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css">
 </head>
 <body>
-  <video autoplay muted loop playsinline id="bg-video">
-    <source src="https://res.cloudinary.com/dfcmvuzw7/video/upload/v1776330631/134252-758855560_z6g8lt.mp4" type="video/mp4">
-  </video>
+  <div class="scanlines"></div>
+  <div class="vignette"></div>
+  <div class="screen">
+    <div class="screen-inner">
 
-  <div class="overlay"></div>
+      <div class="top-bar">
+        <span class="blink">JOUEZ DÈS MAINTENANT</span>
+        <span>W-DOP-200</span>
+        <span class="blink">JOUEZ DÈS MAINTENANT</span>
+      </div>
 
-  <div class="content">
-    <h1>Jeux VidEOPS</h1>
-    <p class="subtitle">Projet DevOps — déploiement automatisé de jeux rétro via CI/CD</p>
+      <header class="title-block">
+        <div class="title-frame">
+          <div class="title-sub">-- EPITECH LILLE 2026 --</div>
+          <h1>JEUX<br>VidEOPS</h1>
+          <div class="title-sub">ÉDITION PIPELINE CI/CD</div>
+        </div>
+      </header>
 
-    <ul>
-      <li>
-        <a href="./two-ships/">
-          <span class="game-title">Two Ships Passing In The Night</span>
-          <span class="game-desc">Jeu de survie spatial en 3D — résistez le plus longtemps possible</span>
-        </a>
-      </li>
-      <li>
-        <a href="./space-word/">
-          <span class="game-title">Space Word</span>
-          <span class="game-desc">Jeu de survie 2D — recopiez les mots affichés pour faire disparaître les cercles avant qu'ils vous envahissent</span>
-        </a>
-      </li>
-    </ul>
+      <div class="select-label">-- CHOISISSEZ VOTRE JEU --</div>
+
+      <ul class="game-list">
+        <li class="game-card">
+          <a href="./two-ships/">
+            <div class="card-inner">
+              <div class="card-num">J1</div>
+              <div class="card-body">
+                <div class="card-tag">[ TIR SPATIAL · 3D ]</div>
+                <div class="card-title">TWO SHIPS PASSING<br>IN THE NIGHT</div>
+                <div class="card-desc">Survivez le plus longtemps possible contre les ennemis.</div>
+                <div class="card-btn">JOUEZ DÈS MAINTENANT</div>
+              </div>
+              <div class="card-score">
+                <div class="score-label">MEILLEUR SCORE</div>
+                <div class="score-val">9999999</div>
+              </div>
+            </div>
+          </a>
+        </li>
+        <li class="game-card">
+          <a href="./space-word/">
+            <div class="card-inner">
+              <div class="card-num">J2</div>
+              <div class="card-body">
+                <div class="card-tag">[ ATTAQUE DE MOTS · 2D ]</div>
+                <div class="card-title">SPACE WORD</div>
+                <div class="card-desc">Des cercles envahissent l'écran. Tapez les mots pour les détruire avant qu'il soit trop tard.</div>
+                <div class="card-btn">JOUEZ DÈS MAINTENANT</div>
+              </div>
+              <div class="card-score">
+                <div class="score-label">MEILLEUR SCORE</div>
+                <div class="score-val">9999999</div>
+              </div>
+            </div>
+          </a>
+        </li>
+      </ul>
+
+      <div class="bottom-bar">
+        <span>2026 CHARLOTTE &amp; NOÉMIE</span>
+        <span class="blink">SÉLECTIONNER</span>
+        <span>EPITECH WAC1</span>
+      </div>
+
+    </div>
   </div>
 </body>
 </html>
