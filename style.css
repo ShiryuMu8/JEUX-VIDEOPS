@@ -1,130 +1,291 @@
-@import url('https://fonts.googleapis.com/css2?family=Raleway:wght@100;200;300&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Press+Start+2P&family=VT323&display=swap');
 
-* {
+*, *::before, *::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
 }
 
-body {
-  font-family: 'Raleway', sans-serif;
-  font-weight: 200;
+:root {
+  --blue:     #4a9eff;
+  --blue-dim: #1a4a7a;
+  --white:    #e8f4ff;
+  --w60:      rgba(232, 244, 255, 0.6);
+  --w30:      rgba(232, 244, 255, 0.3);
+  --dark:     #04080f;
+  --border:   #0d2340;
+}
+
+/* base */
+
+html, body {
   min-height: 100vh;
-  overflow: hidden;
+  background: url('manny-becerra-mMUo6jghVa8-unsplash.jpg') center center / cover no-repeat fixed var(--dark);
+  overflow-x: hidden;
 }
 
-#bg-video {
+/* effets écran */
+
+.scanlines {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  z-index: -2;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 3px,
+    rgba(4, 8, 15, 0.25) 3px,
+    rgba(4, 8, 15, 0.25) 4px
+  );
 }
 
-.overlay {
+.vignette {
   position: fixed;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: rgba(0, 0, 0, 0.2);
-  z-index: -1;
+  inset: 0;
+  z-index: 1;
+  pointer-events: none;
+  background: radial-gradient(ellipse at center, transparent 45%, rgba(0, 0, 0, 0.75) 100%);
 }
 
-.content {
+/* layout */
+
+.screen {
+  position: relative;
+  z-index: 2;
+  min-height: 100vh;
   display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  gap: 3rem;
+  padding: 2rem 1rem;
+}
+
+.screen-inner {
+  width: 100%;
+  max-width: 760px;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: center;
+}
+
+/* barre haute */
+
+.top-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.45rem;
+  color: var(--blue);
+  border-top: 2px solid var(--blue-dim);
+  border-bottom: 1px solid var(--border);
+  padding: 0.5rem 1rem;
+  letter-spacing: 0.05rem;
+  opacity: 0.8;
+}
+
+/* titre */
+
+.title-block {
   text-align: center;
+  width: 100%;
+}
+
+.title-frame {
+  padding: 1.5rem 2rem;
+  border: 1px solid var(--blue-dim);
+  background: rgba(10, 25, 50, 0.5);
 }
 
 h1 {
-  font-size: 3.5rem;
-  font-weight: 100;
-  letter-spacing: 1rem;
-  text-transform: uppercase;
-  color: #fff;
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(1.6rem, 4.5vw, 2.8rem);
+  color: var(--white);
+  line-height: 1.5;
+  letter-spacing: 0.08rem;
   text-shadow:
-    0 0 8px #f1be69,
-    0 0 20px #f1be69,
-    0 0 50px rgba(241, 190, 105, 0.4);
+    0 0 12px rgba(74, 158, 255, 0.5),
+    2px 2px 0 rgba(0, 50, 120, 0.8);
 }
 
-.subtitle {
-  font-size: 0.85rem;
-  font-weight: 200;
-  letter-spacing: 0.3rem;
-  color: rgba(255, 255, 255, 0.5);
-  text-transform: uppercase;
-  margin-top: -2rem;
+.title-sub {
+  font-family: 'VT323', monospace;
+  font-size: 1.1rem;
+  color: var(--blue);
+  letter-spacing: 0.25rem;
+  margin: 0.4rem 0;
+  opacity: 0.65;
 }
 
-ul {
+/* sélection */
+
+.select-label {
+  font-family: 'VT323', monospace;
+  font-size: 1.3rem;
+  color: var(--w60);
+  letter-spacing: 0.25rem;
+  animation: selectBlink 2.5s step-end infinite;
+}
+
+@keyframes selectBlink {
+  0%, 100% { opacity: 1; }
+  60%, 70% { opacity: 0.2; }
+}
+
+/* cartes */
+
+.game-list {
   list-style: none;
+  width: 100%;
   display: flex;
   flex-direction: column;
-  gap: 2rem;
-  text-align: center;
+  gap: 0.75rem;
 }
 
-li a {
+.game-card a {
   display: block;
-  padding: 0.9rem 3rem;
   text-decoration: none;
-  transition: transform 0.3s ease;
+  border: 1px solid var(--border);
+  background: rgba(7, 14, 26, 0.75);
+  transition: border-color 0.2s, background 0.2s, transform 0.15s;
 }
 
-li a:hover {
-  transform: scale(1.05);
+.game-card a:hover {
+  border-color: var(--blue);
+  background: rgba(12, 30, 60, 0.8);
+  transform: translateX(3px);
 }
 
-/* titre cliquable avec effet néon */
-li a:hover .game-title {
-  color: #f1be69;
-  text-shadow:
-    0 0 10px #f1be69,
-    0 0 30px rgba(241, 190, 105, 0.6),
-    0 0 60px rgba(241, 190, 105, 0.3);
-  transform: scale(1.05);
-  display: inline-block;
+.card-inner {
+  display: flex;
+  align-items: stretch;
 }
 
-.game-title {
-  display: inline-block;
-  font-size: 1rem;
-  font-weight: 300;
-  letter-spacing: 0.4rem;
-  text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.8);
-  text-shadow: 0 0 8px rgba(241, 190, 105, 0.4);
-  transition: color 0.3s ease, text-shadow 0.3s ease, transform 0.3s ease;
+.card-num {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.75rem;
+  color: var(--dark);
+  background: var(--blue-dim);
+  writing-mode: vertical-rl;
+  padding: 1rem 0.6rem;
+  min-width: 2.1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  transition: background 0.2s;
 }
 
-li a {
-  display: block;
-  padding: 0.9rem 3rem;
-  text-decoration: none;
-}
-li a:hover .game-title {
-  color: #f1be69;
-  text-shadow:
-    0 0 10px #f1be69,
-    0 0 30px rgba(241, 190, 105, 0.6),
-    0 0 60px rgba(241, 190, 105, 0.3);
+.game-card a:hover .card-num {
+  background: var(--blue);
 }
 
-/* description — pas d'animation, juste lisible */
-.game-desc {
-  display: block;
-  font-size: 0.8rem;
-  font-weight: 200;
+.card-body {
+  flex: 1;
+  padding: 1rem 1.25rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.45rem;
+}
+
+.card-tag {
+  font-family: 'VT323', monospace;
+  font-size: 0.95rem;
+  color: var(--blue);
   letter-spacing: 0.1rem;
-  color: rgba(255, 255, 255, 0.75);
-  margin-top: 0.5rem;
-  text-transform: none;
+  opacity: 0.6;
+}
+
+.card-title {
+  font-family: 'Press Start 2P', monospace;
+  font-size: clamp(0.5rem, 1.4vw, 0.65rem);
+  color: var(--white);
+  line-height: 1.9;
+  letter-spacing: 0.04rem;
+}
+
+.card-desc {
+  font-family: 'VT323', monospace;
+  font-size: 1.05rem;
+  color: var(--w60);
+  line-height: 1.4;
+}
+
+.card-btn {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.45rem;
+  color: var(--blue);
+  letter-spacing: 0.1rem;
+  margin-top: 0.2rem;
+  opacity: 0;
+  transition: opacity 0.2s;
+}
+
+.game-card a:hover .card-btn {
+  opacity: 1;
+}
+
+.card-score {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  justify-content: center;
+  padding: 1rem;
+  border-left: 1px solid var(--border);
+  min-width: 5.5rem;
+  flex-shrink: 0;
+}
+
+.score-label {
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.3rem;
+  color: var(--blue-dim);
+  margin-bottom: 0.35rem;
+}
+
+.score-val {
+  font-family: 'VT323', monospace;
+  font-size: 1.6rem;
+  color: var(--w30);
+  letter-spacing: 0.1rem;
+}
+
+/* barre basse */
+
+.bottom-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  font-family: 'Press Start 2P', monospace;
+  font-size: 0.38rem;
+  color: var(--w30);
+  border-top: 1px solid var(--border);
+  border-bottom: 2px solid var(--blue-dim);
+  padding: 0.5rem 1rem;
+  letter-spacing: 0.05rem;
+}
+
+/* clignotant */
+
+.blink {
+  animation: blinkAnim 1.2s step-end infinite;
+}
+
+@keyframes blinkAnim {
+  0%, 100% { opacity: 1; }
+  50%       { opacity: 0; }
+}
+
+/* responsive */
+
+@media (max-width: 500px) {
+  .card-score { display: none; }
+  .top-bar span:nth-child(2),
+  .bottom-bar span:nth-child(2) { display: none; }
+  .card-num {
+    writing-mode: horizontal-tb;
+    padding: 0.6rem;
+    min-width: auto;
+  }
 }
